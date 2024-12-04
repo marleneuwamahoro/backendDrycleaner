@@ -17,11 +17,7 @@ public class PasswordResetToken {
     private String token;
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
     private UserModel user;
-
-
-
     // Constructors, getters, and setters
     public PasswordResetToken() {}
 
