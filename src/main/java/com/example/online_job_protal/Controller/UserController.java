@@ -37,16 +37,6 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/signup")
-    public String showSignupPage() {
-        return "Signup";  // Looks for signup.html in the templates folder
-    }
-
-    // Display login page
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "loginPage";
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) {
