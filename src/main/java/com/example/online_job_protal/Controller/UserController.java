@@ -119,13 +119,24 @@ public class UserController {
 //
 //        return "AdminDashboard"; // Return the view name
 //    }
+//
+//    @GetMapping("/users")
+//    public ResponseEntity<List<UserModel>> getAllUsers() {
+//        List<UserModel> users = userService.getAllUsers(); // Assuming this method fetches all users
+//        return ResponseEntity.ok(users);
+//    }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserModel>> getAllUsers() {
-        List<UserModel> users = userService.getAllUsers(); // Assuming this method fetches all users
-        return ResponseEntity.ok(users);
+        try {
+            List<UserModel> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
+//
 
 
 
