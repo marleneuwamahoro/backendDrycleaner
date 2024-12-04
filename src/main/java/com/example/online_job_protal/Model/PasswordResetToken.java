@@ -23,7 +23,7 @@ public class PasswordResetToken {
     private UserModel user;
 
 
-    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expiryDate;
 
     // Constructors, getters, and setters
