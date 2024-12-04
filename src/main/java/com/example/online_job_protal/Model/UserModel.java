@@ -16,36 +16,44 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     private String username;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String firstName;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String lastName;
 
     @NotNull
     @Column(nullable = false)
+    @JsonIgnore
     private LocalDate dob;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String phone;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String role = "Customer"; // Default role set to 'customer'
 
     // Relationship with PasswordResetToken
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     @JsonManagedReference
     @JsonBackReference
     private PasswordResetToken passwordResetToken;
