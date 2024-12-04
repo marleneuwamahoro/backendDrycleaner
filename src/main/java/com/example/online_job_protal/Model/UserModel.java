@@ -19,19 +19,15 @@ public class UserModel {
     private Long id;
 
     @Column(nullable = false, unique = true)
-
     private String username;
 
     @Column(nullable = false, unique = true)
-
     private String email;
 
     @Column(nullable = false)
-
     private String password;
 
     @Column(nullable = false)
-
     private String firstName;
 
     @Column(nullable = false)
