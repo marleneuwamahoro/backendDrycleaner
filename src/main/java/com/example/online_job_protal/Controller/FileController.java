@@ -67,18 +67,22 @@ public class FileController {
         }
     }
 
-
     @GetMapping("/files/download/{id}")
     public void downloadFile(@PathVariable Long id, HttpServletResponse response) {
         System.out.println("Download request for file ID: " + id); // Debug line
         FileModel fileModel = fileService.getFile(id);
         if (fileModel != null) {
             File file = new File(fileModel.getResumeFileUrl());
+
+            // Set the content type to the file type
             response.setContentType(fileModel.getResumeFileType());
+
+            // Set the content disposition to trigger file download
             response.setHeader("Content-Disposition", "attachment; filename=\"" + fileModel.getResumeFileName() + "\"");
 
             try (FileInputStream inputStream = new FileInputStream(file);
                  OutputStream outputStream = response.getOutputStream()) {
+
                 byte[] buffer = new byte[4096];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
@@ -86,10 +90,12 @@ public class FileController {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  // In case of error
             }
         } else {
-            // Handle the case when fileModel is null
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // or another appropriate response
+            // Handle the case when the fileModel is null
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); // File not found
         }
     }
 }
+
