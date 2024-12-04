@@ -1,6 +1,8 @@
 package com.example.online_job_protal.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -15,6 +17,8 @@ public class PasswordResetToken {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    @JsonBackReference
     private UserModel user;
 
     private Date expiryDate;
