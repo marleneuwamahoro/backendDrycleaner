@@ -39,8 +39,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password, HttpServletRequest request) {
-        Optional<UserModel> user = userService.login(email, password);
+    public ResponseEntity<?> login(@RequestBody UserModel userModel, HttpServletRequest request) {
+        // Assuming userService.login() now accepts UserModel
+        Optional<UserModel> user = userService.login(userModel.getEmail(), userModel.getPassword());
 
         if (user.isPresent()) {
             HttpSession session = request.getSession();
@@ -125,8 +126,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-//
 
 
 
