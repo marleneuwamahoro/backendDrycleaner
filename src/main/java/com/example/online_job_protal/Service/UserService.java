@@ -74,12 +74,13 @@ public class UserService {
         Optional<UserModel> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             String token = UUID.randomUUID().toString();
-            PasswordResetToken resetToken = new PasswordResetToken(token, user.get(), new Date(System.currentTimeMillis() + 30 * 60 * 1000)); // 30 minutes expiry
+            PasswordResetToken resetToken = new PasswordResetToken(token, user.get());
             tokenRepository.save(resetToken);
             return token;
         }
         return null;
     }
+
     // 2. Send Reset Email
     public void sendResetEmail(String email, String resetLink) {
         try {
@@ -99,13 +100,13 @@ public class UserService {
     // 3. Validate Token
     public boolean validateToken(String token) {
         Optional<PasswordResetToken> resetToken = tokenRepository.findByToken(token);
-        return resetToken.isPresent() && resetToken.get().getExpiryDate().after(new Date());
+        return resetToken.isPresent();
     }
 
     // 4. Update Password
     public boolean updatePassword(String token, String password) {
         Optional<PasswordResetToken> resetToken = tokenRepository.findByToken(token);
-        if (resetToken.isPresent() && resetToken.get().getExpiryDate().after(new Date())) {
+        if (resetToken.isPresent()) {
             UserModel user = resetToken.get().getUser();
             user.setPassword(password);
             userRepository.save(user);

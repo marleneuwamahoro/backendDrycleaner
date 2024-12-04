@@ -15,23 +15,19 @@ public class PasswordResetToken {
     private Long id;
 
     private String token;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonManagedReference
     private UserModel user;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date expiryDate;
 
     // Constructors, getters, and setters
     public PasswordResetToken() {}
 
-    public PasswordResetToken(String token, UserModel user, Date expiryDate) {
+    public PasswordResetToken(String token, UserModel user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = expiryDate;
     }
 
     public Long getId() {
@@ -58,11 +54,4 @@ public class PasswordResetToken {
         this.user = user;
     }
 
-    public Date getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
 }
