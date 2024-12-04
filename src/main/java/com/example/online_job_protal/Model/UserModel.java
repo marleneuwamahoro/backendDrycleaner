@@ -41,7 +41,6 @@ public class UserModel {
 
     @NotNull
     @Column(nullable = false)
-    @JsonIgnore
     private LocalDate dob;
 
     @Column(nullable = false)
