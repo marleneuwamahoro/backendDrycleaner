@@ -1,7 +1,9 @@
 package com.example.online_job_protal.Model;
 
 import com.example.online_job_protal.Model.PasswordResetToken;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -44,6 +46,8 @@ public class UserModel {
     // Relationship with PasswordResetToken
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
+    @JsonManagedReference
+    @JsonBackReference
     private PasswordResetToken passwordResetToken;
 
     public UserModel() {
