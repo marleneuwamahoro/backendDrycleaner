@@ -29,23 +29,14 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @GetMapping("/upload")
-    public String uploadForm(Model model) {
-        List<FileModel> files = fileService.getAllFiles(); // Get all files
-        model.addAttribute("files", files); // Add files to the model
-        return "upload"; // Return the name of the upload HTML file (upload.html)
-    }
+    @GetMapping("/files")
+    public ResponseEntity<List<FileModel>> getAllFiles() {
+        // Fetch all files stored in your system (assuming fileService provides this method)
+        List<FileModel> files = fileService.getAllFiles();
 
-//    @PostMapping("/upload")
-//    public String uploadFile(MultipartFile file, Model model) {
-//        try {
-//            FileModel savedFile = fileService.uploadFile(file);
-//            model.addAttribute("successMessage", "File uploaded successfully: " + savedFile.getResumeFileName());
-//        } catch (IOException e) {
-//            model.addAttribute("errorMessage", "Failed to upload file: " + e.getMessage());
-//        }
-//        return "redirect:/upload"; // Redirect back to upload form to refresh the list
-//    }
+        // Return the files as JSON response
+        return ResponseEntity.ok(files);
+    }
 
     @PostMapping("/upload")
     @ResponseBody
