@@ -13,5 +13,4 @@ public class OnlineJobProtalApplication {
 		SpringApplication.run(OnlineJobProtalApplication.class, args);
 	}
 
-	
 }
