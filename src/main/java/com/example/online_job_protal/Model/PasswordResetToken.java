@@ -19,7 +19,6 @@ public class PasswordResetToken {
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonManagedReference
-    @JsonBackReference
     private UserModel user;
 
 
