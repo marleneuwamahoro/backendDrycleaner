@@ -13,8 +13,5 @@ public class OnlineJobProtalApplication {
 		SpringApplication.run(OnlineJobProtalApplication.class, args);
 	}
 
-	@Bean
-	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
-		return factory -> factory.setPort(8083);  // Replace 8081 with your desired port number
-	}
+	
 }
