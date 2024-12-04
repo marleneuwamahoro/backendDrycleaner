@@ -22,6 +22,8 @@ public class PasswordResetToken {
     @JsonBackReference
     private UserModel user;
 
+
+    
     private Date expiryDate;
 
     // Constructors, getters, and setters
