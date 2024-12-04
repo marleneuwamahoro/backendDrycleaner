@@ -19,7 +19,7 @@ import java.util.UUID;
 public class FileService {
 
     private final FileRepository fileRepository;
-    private final String uploadDir = "uploads/";
+    private  String uploadDir;
 
     @Autowired
     public FileService(FileRepository fileRepository) {
