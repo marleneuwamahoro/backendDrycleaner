@@ -4,6 +4,7 @@ import com.example.online_job_protal.Model.FileModel;
 
 import com.example.online_job_protal.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,8 @@ import java.util.UUID;
 public class FileService {
 
     private final FileRepository fileRepository;
-    private  String uploadDir;
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     @Autowired
     public FileService(FileRepository fileRepository) {
