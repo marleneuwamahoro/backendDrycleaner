@@ -54,6 +54,8 @@ public class UserModel {
 
     // Relationship with PasswordResetToken
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JsonIgnore
     private PasswordResetToken passwordResetToken;
 
     public UserModel() {

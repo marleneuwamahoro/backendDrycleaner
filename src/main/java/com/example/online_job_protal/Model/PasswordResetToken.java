@@ -2,6 +2,7 @@ package com.example.online_job_protal.Model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -17,6 +18,8 @@ public class PasswordResetToken {
     private String token;
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    @JsonIgnore
     private UserModel user;
     // Constructors, getters, and setters
     public PasswordResetToken() {}
