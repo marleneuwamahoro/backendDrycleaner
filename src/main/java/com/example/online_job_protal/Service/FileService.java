@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class FileService {
@@ -32,18 +33,28 @@ public class FileService {
     }
 
     public FileModel uploadFile(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
-        String fileType = file.getContentType();
-        String fileUrl = uploadDir + fileName;
+        // Ensure the upload directory exists
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs();  // Create the directory if it doesn't exist
+        }
 
+        // Generate a unique file name to avoid conflicts
+        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String fileType = file.getContentType();
+        String fileUrl = Paths.get(uploadDir, fileName).toString();
+
+        // Save the file to the specified directory
         Path path = Paths.get(fileUrl);
         Files.copy(file.getInputStream(), path);
 
+        // Create a FileModel to store the file's metadata
         FileModel fileModel = new FileModel();
         fileModel.setResumeFileName(fileName);
         fileModel.setResumeFileType(fileType);
         fileModel.setResumeFileUrl(fileUrl);
 
+        // Save file metadata in the database
         return fileRepository.save(fileModel);
     }
 
