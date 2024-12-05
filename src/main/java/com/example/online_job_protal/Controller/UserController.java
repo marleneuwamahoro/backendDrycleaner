@@ -83,40 +83,6 @@ public class UserController {
     }
 
 
-
-//    @GetMapping("/AdminDashboard")
-//    public String showDashboard(@RequestParam(defaultValue = "") String search,
-//                                @RequestParam(defaultValue = "0") int page,
-//                                @RequestParam(defaultValue = "10") int size,
-//                                Model model, HttpSession session) {
-//
-//        String email = (String) session.getAttribute("email");
-//        String role = (String) session.getAttribute("role");
-//        model.addAttribute("username", role);
-//
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
-//        Page<UserModel> users;
-//
-//        if (!search.isEmpty()) {
-//            users = userService.searchUsers(search, pageable);
-//        } else {
-//            users = userService.getAllUsers(pageable);
-//        }
-//
-//        model.addAttribute("users_data", users.getContent());
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", users.getTotalPages());
-//        model.addAttribute("search", search);
-//
-//        return "AdminDashboard"; // Return the view name
-//    }
-//
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserModel>> getAllUsers() {
-//        List<UserModel> users = userService.getAllUsers(); // Assuming this method fetches all users
-//        return ResponseEntity.ok(users);
-//    }
-
     @GetMapping("/users")
     public ResponseEntity<List<UserModel>> getAllUsers() {
         try {
@@ -139,11 +105,11 @@ public class UserController {
 
         model.addAttribute("allowedMenus", allowedMenus);
 
-        // Add attributes to the model
+
         model.addAttribute("username", role);
         model.addAttribute("firstname", firstname);
-        model.addAttribute("lastname", lastname);// Replace with logged-in user's name
-        return "UserDashboard"; // Name of the HTML file
+        model.addAttribute("lastname", lastname);//
+        return "UserDashboard";
     }
 
     // Update User
@@ -199,20 +165,6 @@ public class UserController {
                 .body("Email not found.");
     }
 
-//    // Endpoint to reset password
-//    @PostMapping("/reset-password-action")
-//    public String resetPassword(@RequestParam String token, @RequestParam String newPassword,Model model) {
-//        if (userService.validateToken(token)) {
-//             userService.updatePassword(token, newPassword);
-//            model.addAttribute("messages", "Password successfully reset.");
-//            return "/resetpassword";
-//        }
-//        return "Invalid or expired token.";
-//    }
-//
-//
-
-
     @GetMapping("/verify-reset-token")
     public ResponseEntity<String> verifyResetToken(@RequestParam String token) {
         boolean isValid = userService.validateToken(token);
@@ -224,14 +176,6 @@ public class UserController {
         }
     }
 
-    //    @GetMapping("/resetpassword")
-//    public String showResetPasswordPage(@RequestParam String token, Model model) {
-//        if (token == null || token.isEmpty()) {
-//            return "error";
-//        }
-//        model.addAttribute("token", token);
-//        return "resetPassword";
-//    }
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {
         String token = request.get("token");
