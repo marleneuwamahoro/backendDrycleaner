@@ -12,7 +12,7 @@ public class Config {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("https://frontendapprication-7646acdba361.herokuapp.com"); // React frontend URL
+        config.addAllowedOrigin("https://frontend-drycleaner.onrender.com"); // React frontend URL
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         source.registerCorsConfiguration("/**", config);
